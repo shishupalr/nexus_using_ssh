@@ -1,0 +1,21 @@
+---
+- name: Transfer and execute a script.
+  hosts: nexus
+  become: true
+  tasks:
+    - name: Transfer the script
+      copy: src=/home/ansible/nexus/nexus.rc  dest=/mnt mode=0777
+    - name: Transfer the script
+      copy: src=/home/ansible/nexus/nexus.vmoptions  dest=/mnt mode=0777
+
+-----------------------------------------------------------------------------------
+
+---
+- hosts: user
+  name: Transfer and execute a script.
+  become: true
+  tasks:
+    - name: Transfer the script
+      copy: src=/home/ansible/nexus/nexusaws.sh dest=/root/ mode=0777
+
+    - command: sh nexusaws.sh

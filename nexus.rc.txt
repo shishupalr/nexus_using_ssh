@@ -1,0 +1,3 @@
+#vim /mnt/nexus.rc
+
+run_as_user="nexus"

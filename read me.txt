@@ -1,0 +1,33 @@
+this is the step to configure nexus server on remote host
+Tech used -
+Shell script (for writing the instrution )
+ansible playbook(for deployment and execution )
+
+Important thing while making this file here 
+I have created one dir named nexus to store all neccecary data 
+
+File creation section
+create one file at ansible host machine to replace the file at remote machine
+
+/home/ansible/nexus/nexus.rc ----->>>copy the content from nexus.rc file as uploded
+/home/ansible/nexus/nexus.vmoption ---->>>copy the content from nexus.vmoption file as uploded 
+other file
+/home/ansibel/nexus/nexus.sh 
+
+Ansible
+
+create a host entry in ansible directort let say user
+and add detail as follow
+<remote_ip>  ansible_connection=ssh ansible_user=root
+ 
+create two diffrent playbook one for coping content and another to excute shell script
+--playbook is also uploded as nexusplaybook
+I have used nexuscopy playbook to copy the configered file and and  named nexus.yml for executing the script
+
+I have used this command for execution 
+ansible-playbook -i user /home/jenkins/ansible/nexus/nexuscopy.yml -k -u root
+ansible-playbook -i user /home/jenkins/ansible/nexus/nexus.yml -k -u root
+
+
+here you shoud know remote user(i.e root ) password for excution 
+

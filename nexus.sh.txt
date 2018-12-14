@@ -1,0 +1,34 @@
+#!/bin/bash 
+
+yum install wget -y
+
+yum install java -y
+
+cd /opt
+
+wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+
+tar -xvf latest-unix.tar.gz
+
+mv nexus-3.14.0-04 nexus
+adduser nexus
+
+chown -R nexus:nexus /opt/nexus
+
+mv  /opt/nexus/bin/nexus.rc /opt/nexus/bin/nexus.rc.backup
+cp /mnt/nexus.rc /opt/nexus/bin/nexus.rc
+
+mv /opt/nexus/bin/nexus.vmoptions /opt/nexus/bin/nexus.vmoptions.backup
+cp /mnt/nexus.vmoptions /opt/nexus/bin/nexus.vmoptions
+
+ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
+
+chkconfig --add nexus
+
+chkconfig --levels 345 nexus on
+firewall-cmd --permanent --add-port=8081/tcp
+firewall-cmd --reload
+
+service nexus start
+service nexus status
+servuce nexus restart
